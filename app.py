@@ -1,3 +1,4 @@
+import json
 import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
@@ -61,7 +62,7 @@ COLUMNS = ["timestamp", "hotel", "guest_id"] + [q[0] for q in QUESTIONS]
 
 def get_sheet():
     creds = Credentials.from_service_account_info(
-        st.secrets["gcp_service_account"],
+        json.loads(st.secrets["gcp_json"]),
         scopes=["https://www.googleapis.com/auth/spreadsheets"],
     )
     client = gspread.authorize(creds)
